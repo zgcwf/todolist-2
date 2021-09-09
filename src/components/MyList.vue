@@ -1,5 +1,6 @@
 <template>
   <ul class="todo-main">
+    <!-- 将接收的父组件函数传递给子组件 -->
     <!-- <MyItem
       v-for="todoObj of todos"
       :key="todoObj.id"
@@ -7,7 +8,7 @@
       :checkTodo="checkTodo"
       :deleteTodo="deleteTodo"
     /> -->
-    <!-- 将接收的父组件函数传递给子组件 -->
+
     <transition-group name="todo" appear="">
       <MyItem v-for="todoObj of todos" :key="todoObj.id" :todo="todoObj" />
     </transition-group>
@@ -41,19 +42,27 @@ export default {
   margin-top: 10px;
 }
 .todo-enter-active {
-  animation: atguigu 0.5s linear;
+  animation: atguigu1 0.5s linear;
 }
 
 .todo-leave-active {
-  animation: atguigu 0.5s linear reverse;
+  animation: atguigu2 0.5s linear;
 }
 
-@keyframes atguigu {
+@keyframes atguigu1 {
   from {
-    transform: translateX(100%);
+    transform: translateY(-100%);
   }
   to {
-    transform: translateX(0px);
+    transform: translateY(0px);
+  }
+}
+@keyframes atguigu2 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
   }
 }
 </style>

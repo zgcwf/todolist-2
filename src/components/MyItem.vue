@@ -67,15 +67,19 @@ export default {
     // 编辑
     handleEdit(todo) {
       if (Object.prototype.hasOwnProperty.call(todo, "isEdit")) {
+        //如果todo中有isEdit这个属性，则将其值改为true
         todo.isEdit = true;
       } else {
+        //如果todo中没有isEdit这个属性，则设置改属性
         this.$set(todo, "isEdit", true);
       }
-      // 在下一次 DOM 更新结束后执行其指定的回调。
+      // 在下一次 DOM 更新结束，更新模板后执行其指定的回调。
+      // 因为要等handleEdit函数执行完毕后才会重新解析模板，而this.$refs.inputTitle.focus()要基于更新后的新DOM进行操作
       this.$nextTick(function () {
         // 自动获取焦点
         this.$refs.inputTitle.focus();
       });
+      // 可以用定时器来达到目的
       // setTimeout(() => {
       //   this.$refs.inputTitle.focus();
       // });

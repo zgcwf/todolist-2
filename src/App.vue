@@ -14,6 +14,7 @@
           :checkTodo="checkTodo"
           :deleteTodo="deleteTodo"
         ></MyList> -->
+        <!-- 使用全局事件总线 -->
         <MyList :todos="todos"> </MyList>
 
         <!--  2.props：将父组件函数传递给子组件 
@@ -100,10 +101,11 @@ export default {
     },
   },
   watch: {
+    //本地存储，用watch监视todos
     todos: {
       deep: true,
       // 开启深度监视
-      // 当todos中的数据发生变化时，handler自动调用
+      // 当todos中的数据发生变化时，handler自动调用，将value赋给todos，value代表着新的todos
       handler(value) {
         localStorage.setItem("todos", JSON.stringify(value));
         // console.log("@", value);
@@ -121,7 +123,7 @@ export default {
   },
   beforeDestroy() {
     // 解绑当前组件所用到的事件。
-    this.$bus$off("checkTodo");
+    this.$bus.$off("checkTodo");
     // 取消当前订阅事件
     pubsub.unsubscribe(this.pubId);
     // 解绑当前组件所用到的事件。
